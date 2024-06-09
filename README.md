@@ -1,4 +1,4 @@
-# Thirst-Alert
+# Tutorial to recreate the Thirst-Alert system
 ## Overview of the project
 **Lucas Baunsgaard | lb224rw**
 
@@ -15,3 +15,31 @@ The primary objective of this project is to develop a system capable of autonomo
 ### Insights
 Through the execution of this project, it is expected to gain valuable insights into the technical aspects of IoT device integration, sensor calibration, and data interpretation. Furthermore, the project aims to provide a deeper understanding of the role of technology in optimizing plant care routines. The anticipated insights encompass both practical knowledge related to hardware implementation and conceptual understanding of the synergy between IoT and agriculture.
 
+## Material
+**Component** | **Description/Function** | **Purchased From** | **Price**(approximately)
+--------------| -------------------------| -------------------| ------------------------
+Thing one          | Short description and the function of this component or sensor     |Link to site      | Cost
+Thing two          | Short description and the function of this component or sensor     |Link to site      | Cost
+Thing three          | Short description and the function of this component or sensor      |Link to site      | Cost
+Thing four          | Short description and the function of this component or sensor      |Link to site      | Cost
+
+
+## Computer setup
+### Chosen IDE
+For this project, Visual Studio Code (VS Code) is used as the Integrated Development Environment (IDE). VS Code is a powerful and versatile editor with extensive support for various programming languages and tools.
+
+### Installing Necessary Software
+1. **Visual Studio Code**<br>
+Download and install Visual Studio Code from the [official website](https://code.visualstudio.com/). Follow the installation instructions specific to your operating system.
+3. **Node.js** <br>
+Download and install Node.js from the [official website](https://nodejs.org/).<br> After installing it open command promt and write
+```
+node -v
+npm -v
+```
+To verify a successful installation
+
+5. **Raspberry pi pico software**
+
+### Setting Up The IDE
+1. **Installing Addons/Plugins in Visual Studio Code**
