@@ -32,12 +32,12 @@ For this project, Visual Studio Code (VS Code) is used as the Integrated Develop
 1. **Visual Studio Code**<br>
 Download and install Visual Studio Code from the [official website](https://code.visualstudio.com/). Follow the installation instructions specific to your operating system.
 3. **Node.js** <br>
-Download and install Node.js from the [official website](https://nodejs.org/).<br> After installing it open command promt on your computer and write
-```shell
-node -v
-npm -v
-```
-in the terminal to verify a successful installation
+Download and install Node.js from the [official website](https://nodejs.org/).<br> After installing it open command promt on your computer and write:
+   ```shell
+   node -v
+   npm -v
+   ```
+   in the terminal to verify a successful installation
 
 5. **Raspberry pi pico firmware**<br>
 Download the latest firmware release on the [MycroPython site](https://micropython.org/download/RPI_PICO_W/). To install the firmware follow their guide they provide under **Installation instructions** on the same site as you downloaded the firmware.
