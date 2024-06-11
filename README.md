@@ -5,7 +5,7 @@
 The ThirstAlert system uses a soil moisture sensor connected to an IoT platform to monitor and report the moisture levels in the soil. When the moisture level drops below a certain threshold, the system sends a notification to alert you that it's time to water your plants. This project is the result of an IoT course at Linnaeus University (LNU) in Sweden. Read more about the LNU course [Introduction to Applied Internet of Things.](https://lnu.se/kurs/tillampad-internet-of-things-introduktion/distans-internationell-engelska-sommar/)
 
 ***Time to complete:*** <br>
-Approximately X-X hours, depending on your experience with IoT and electronics.
+This took me approximately 8 hours to complete, but depending on your experience with IoT and electronics it might take shorter time.
 
 ## 2. Objective
 ### Project idea and purpose
@@ -55,55 +55,95 @@ Explains the circuit diagram a bit
 Some information about what platform did i use and like that
 
 ## 7. The code
+### Wi-Fi function:
+To connect your Raspberry Pi Pico WH board to the Wi-Fi, I created a function that is called within the `boot.py` file. You can use this function to establish the connection:
 ```Python
-import dht
-import machine
-import time
+def connect():
+    wlan = network.WLAN(network.STA_IF)         # Put modem on Station mode
+    if not wlan.isconnected():                  # Check if already connected
+        print('connecting to network...')
+        wlan.active(True)                       # Activate network interface
+        
+        # set power mode to get WiFi power-saving off (if needed)
+        wlan.config(pm = 0xa11140)
+        wlan.connect(keys.WIFI_SSID, keys.WIFI_PASS)  # Your WiFi Credential
+        print('Waiting for connection...', end='')
 
-tempSensor = dht.DHT11(machine.Pin(27))     # DHT11 Constructor 
-# tempSensor = dht.DHT22(machine.Pin(27))   # DHT22 Constructor
+        # Check if it is connected otherwise wait
+        while not wlan.isconnected() and wlan.status() >= 0:
+            print('.', end='')
+            sleep(1)
 
-while True:
-    try:
-        tempSensor.measure()
-        temperature = tempSensor.temperature()
-        humidity = tempSensor.humidity()
-        print("Temperature is {} degrees Celsius and Humidity is {}%".format(temperature, humidity))
-    except Exception as error:
-        print("Exception occurred", error)
-    time.sleep(1)
+    # Print the IP assigned by router
+    ip = wlan.ifconfig()[0]                # Get the IP address
+    print('\nConnected on {}'.format(ip))  # Print the IP address
+    return ip                              # Return the IP address
 ```
+This function initializes the Wi-Fi interface in station mode, checks for an existing connection, and attempts to connect to the specified Wi-Fi network using credentials stored in keys.WIFI_SSID and keys.WIFI_PASS in the `keys.py` file. If successful, it prints and returns the assigned IP address.
 
+### Wi-Fi connection test function
+The http_get function performs a simple HTTP GET request to a specified URL, used in `boot.py` to check internet connectivity.
 ```Python
-import wifiConnection
-
-
 def http_get(url = 'http://detectportal.firefox.com/'):
     import socket                           # Used by HTML get request
     import time                             # Used for delay
-    _, _, host, path = url.split('/', 3)    # Separate URL request
-    addr = socket.getaddrinfo(host, 80)[0][-1]  # Get IP address of host
-    s = socket.socket()                     # Initialise the socket
-    s.connect(addr)                         # Try connecting to host address
-    # Send HTTP request to the host with specific path
-    s.send(bytes('GET /%s HTTP/1.0\r\nHost: %s\r\n\r\n' % (path, host), 'utf8'))    
-    time.sleep(1)                           # Sleep for a second
-    rec_bytes = s.recv(10000)               # Receve response
-    print(rec_bytes)                        # Print the response
-    s.close()                               # Close connection
+    try:
+        _, _, host, path = url.split('/', 3)    # Separate URL request
+        addr = socket.getaddrinfo(host, 80)[0][-1]  # Get IP address of host
+        s = socket.socket()                     # Initialise the socket
+        s.connect(addr)                         # Try connecting to host address
+        
+        # Send HTTP request to the host with specific path
+        s.send(bytes('GET /%s HTTP/1.0\r\nHost: %s\r\n\r\n' % (path, host), 'utf8'))    
+        time.sleep(1)                           # Sleep for a second
+        rec_bytes = s.recv(10000)               # Receve response
+        print(rec_bytes)                        # Print the response
+        s.close()                               # Close connection
 
-# WiFi Connection
-try:
-    ip = wifiConnection.connect()
-except KeyboardInterrupt:
-    print("Keyboard interrupt")
-
-# HTTP request
-try:
-    http_get()
-except (Exception, KeyboardInterrupt) as err:
-    print("No Internet", err)
-
-# WiFi Disconnect
-# wifiConnection.disconnect().
+    except Exception as e:                      # If connection fails
+        print(f"An error occured: {e}")         # Print error message
 ```
+This function parses the provided URL, retrieves the host's IP address, and initializes a socket connection. It sends an HTTP GET request, prints the response, and then closes the connection. Any errors during this process are caught and printed. This function verifies internet connectivity by attempting to reach a known URL.
+
+### API connection test function
+To ensure that the Raspberry Pi Pico WH board can communicate with the ThingSpeak API, another function is defined and called within the `boot.py` file. This function verifies the connection to the API by sending a test request.
+```Python
+def test_api_connection():
+    url = f'https://api.thingspeak.com/update?api_key={keys.api_key}&field1=0'
+    try:
+        response = urequests.get(url)
+        if response.status_code == 200:
+            print('API connection successful')
+            return True
+        else:
+            print('API connection failed with status code', response.status_code)
+            return False
+    except Exception as e:
+        print('API connection failed with error: ', e)
+        return False
+```
+This function constructs a test URL using the API key stored in keys.api_key and attempts to send a GET request to ThingSpeak. If the response status code is 200, it prints "API connection successful" and returns True. Otherwise, it prints the failure status code or error message and returns False.
+
+### Sensor data reading and API transmission
+The following code snippet serves to monitor the moisture level of soil using a sensor and transmit the data to ThingSpeak, an IoT platform, for further analysis and visualization.
+```Python
+soil = ADC(27) # Soil sensor connected to pin 27
+min_moisture = 0
+max_moisture = 65535
+
+# Reading the moisture level from the soil sensor and converting it to a percentage value.
+moisture = round((max_moisture - soil.read_u16()) * 130 / (max_moisture - min_moisture))
+
+# Checking if the moisture level is within the range of 0 to 100
+if 0 <= moisture <= 100:
+    print("Moisture is {}%".format(moisture))
+    
+    # Sending the data to ThingSpeak using the API key and the moisture level
+    url = f'https://api.thingspeak.com/update?api_key={keys.api_key}&field1={moisture}'
+    response = urequests.get(url)
+    response.close()
+```
+The code reads the moisture level from the soil sensor thats connected to pin 27 and converts it into a percentage. It then checks if the moisture level falls within the valid range of 0 to 100%. If the moisture level is valid, the data is transmitted to ThingSpeak through an API call. This code snippet aids in automating soil moisture monitoring, facilitating efficient data collection for agricultural or environmental applications.
+
+## 8. Data Transmission and Connectivity
+To transmit the data collected from the moisture and temperature sensors, the Thirst-Alert system utilizes ThingSpeak, an IoT platform. This integration with ThingSpeak enables seamless data transmission to the cloud, where the sensor readings are securely stored and can be accessed remotely. ThingSpeak provides robust features for real-time data visualization, analysis, and integration with other IoT applications, enhancing the monitoring capabilities of the Thirst-Alert system. With ThingSpeak, users can easily track and manage the moisture and temperature levels of their plants from anywhere, ensuring optimal growing conditions.
