@@ -48,7 +48,7 @@ Download the latest firmware release on the [MycroPython site](https://micropyth
    - Additionally, I recommend downloading the [***Python***](https://marketplace.visualstudio.com/items?itemName=ms-python.python) extension by **Microsoft**, which enhances the Python programming experience in Visual Studio Code.
  
 ## 5. Putting everything together
-![Electronics](https://t3.ftcdn.net/jpg/06/00/90/50/360_F_600905009_Fk9is0pcoxVFjRiz4IOURB35OSHNIvRH.jpg) <br>
+![Electronics](img/Circuit%20diagram_bb.png) <br>
 Explains the circuit diagram a bit
 
 ## 6. Platform
