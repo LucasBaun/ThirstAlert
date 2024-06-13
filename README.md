@@ -22,6 +22,7 @@ Raspberry Pi Pico WH   | Serves as the central controller in the Thirst-Alert sy
 Solderless Breadboard | The Solderless Breadboard acts as the assembly platform for electronic circuits in the project. It allows easy and temporary connections of components without soldering, facilitating rapid prototyping and testing of the Thirst-Alert system's electronic setup.     |[Electrokit](https://www.electrokit.com/en/kopplingsdack-840-anslutningar)      | 69 SEK
 Jumper wires female/male| These wires facilitate connections between components on the breadboard and other hardware, enabling seamless signal and power transmission in the project. |[Electrokit](https://www.electrokit.com/en/labbsladd-40-pin-30cm-hona/hane)| 49 SEK
 Soil hygrometer module          | The Soil Hygrometer Module detects soil moisture levels, providing crucial data for the Thirst-Alert system. It consists of two probes that are inserted into the soil, and its analog output varies depending on the moisture content. This module serves as the primary sensor, allowing the system to determine when watering is needed based on the soil's hydration level.     |[Electrokit](https://www.electrokit.com/en/jordfuktighetssensor)      | 29 SEK
+temperature and humidity sensor | The DHT11 sensor measures environmental temperature and humidity, providing digital output for accurate monitoring of the plant's surroundings. Essential for ensuring optimal growing conditions. | [Electrokit](https://www.electrokit.com/en/digital-temperatur-och-fuktsensor-dht11) | 49 SEK
 
 
 ## 4. Computer setup
@@ -49,7 +50,6 @@ Download the latest firmware release on the [MycroPython site](https://micropyth
  
 ## 5. Putting everything together
 ![Electronics](img/Circuit%20diagram_bb.png) <br>
-Explains the circuit diagram a bit
 
 ## 6. Platform
 Some information about what platform did i use and like that
@@ -147,3 +147,8 @@ The code reads the moisture level from the soil sensor thats connected to pin 27
 
 ## 8. Data Transmission and Connectivity
 To transmit the data collected from the moisture and temperature sensors, the Thirst-Alert system utilizes ThingSpeak, an IoT platform. This integration with ThingSpeak enables seamless data transmission to the cloud, where the sensor readings are securely stored and can be accessed remotely. ThingSpeak provides robust features for real-time data visualization, analysis, and integration with other IoT applications, enhancing the monitoring capabilities of the Thirst-Alert system. With ThingSpeak, users can easily track and manage the moisture and temperature levels of their plants from anywhere, ensuring optimal growing conditions.
+
+## 9. Presenting the data
+
+## 10. The final design
+
