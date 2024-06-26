@@ -59,8 +59,25 @@ For my project, I chose [ThingSpeak](https://thingspeak.com) as the platform for
 ThingSpeak's ability to create events based on specific data values was another key feature that influenced my decision. This functionality allows for real-time alerts when plant needs water, enhancing the project's interactivity and responsiveness. 
 
 ### Get started:
-   1. To get started with Thingspeak you first need to have an <ins>MathWork</ins> account, you can follow the steps on their [website](https://www.mathworks.com).
-   2. Login to Thingspeak and create a new channel under the "[Channels](https://thingspeak.com/channels)" menu
+
+1. **Create MathWork Account**
+   - To use ThingSpeak, you need a MathWorks account. Register an account on their official [website](https://www.mathworks.com/mwaccount/register).
+   - Provide the required information and click '**Create**'.
+   - Click the link in the email from MathWorks to verify your email address.
+   - Complete your profile by providing the required information and accepting the Online Services Agreement. Click '**Create**'.
+   - If you encounter any issues, refer to the video walkthrough [here](https://www.mathworks.com/videos/create-a-mathworks-account-using-a-matlab-portal-1600159919958.html).
+
+2. **Creating ThingSpeak Channel**
+   - Log in to ThingSpeak and navigate to the "[Channels](https://thingspeak.com/channels)" menu to create a new channel. <img src="img/ThingspeakGuide1.png" width="600">
+   - Enter the *Name* of your project and provide a *Description* of its purpose. Under *Fields*, specify the number of data inputs. For the ThirstAlert project, activate 3 Fields:
+      - Moisture
+      - Temperature
+      - Humidity
+
+3. **Getting API Key**
+   - After creating a channel in ThingSpeak, go to the channel settings, click on API Keys, and locate your API key. This key will be needed to be put in [keys](linkToFile) file for integrating ThingSpeak with your project. <img src="img/ThingspeakGuide2.png" width="600">
+
+
 
 ## 7. The code
 ### Wi-Fi function:
