@@ -218,10 +218,16 @@ if 0 <= moisture <= 100:
 The code reads the moisture level from the soil sensor that's connected to pin 27 and converts it into a percentage. It then checks if the moisture level falls within the valid range of 0 to 100%. If the moisture level is valid, the data is transmitted to ThingSpeak through an API call. This code snippet aids in automating soil moisture monitoring, facilitating efficient data collection for agricultural or environmental applications.
 
 ## 8. Data Transmission and Connectivity
-To transmit the data collected from the moisture and temperature sensors, the Thirst-Alert system utilizes ThingSpeak, an IoT platform. This integration with ThingSpeak enables seamless data transmission to the cloud, where the sensor readings are securely stored and can be accessed remotely. ThingSpeak provides robust features for real-time data visualization, analysis, and integration with other IoT applications, enhancing the monitoring capabilities of the Thirst-Alert system. With ThingSpeak, users can easily track and manage the moisture and temperature levels of their plants from anywhere, ensuring optimal growing conditions.
+To transmit the data collected from the moisture, temperature and humidity sensors, the Thirst-Alert system utilizes ThingSpeak API. This integration with ThingSpeak enables seamless data transmission to the cloud, where the sensor readings are securely stored and can be accessed remotely. The data is being sent every 30 minutes as a standard in the code, this is not to reach the limit of ThingSpeak API they have on their free version.
+
+For us to get the data from the raspberry pi to ThingSpeak the code uses these files:
+- It uses `keys.py` to store all the secure informations like WiFi password or API keys.
+- It uses `wifiConnection.py` to connect to the WiFi.
+- It uses `apiConnection.py` to check the connection to the API.
+- In `main.py` it collects the data from the sensors and sends it to ThingSpeak.
 
 ## 9. Presenting the data
-The data is saved every 30 minutes as a standard in the code, this is not to reach the limit of ThingSpeak API they have on their free version. 
+The data is saved every 30 minutes because of its only getting data that often, having it saving every 30 minutes garantees no data will be lost.
 ### View in ThingSpeak
 To present the data in a visual pleasing way I use ThingSpeaks Visualizations to display charts of all the data I get, I've alson added an gauge to make it more simple to read what level you want to have the soil moisture on. In ThingSpeak you have the ability to add an *Numeric Display*, *Lamp Indicator* and a *Image Display* as well if you would like other/more ways of displaying the data.
 <br><br>
