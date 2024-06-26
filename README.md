@@ -221,7 +221,22 @@ The code reads the moisture level from the soil sensor thats connected to pin 27
 To transmit the data collected from the moisture and temperature sensors, the Thirst-Alert system utilizes ThingSpeak, an IoT platform. This integration with ThingSpeak enables seamless data transmission to the cloud, where the sensor readings are securely stored and can be accessed remotely. ThingSpeak provides robust features for real-time data visualization, analysis, and integration with other IoT applications, enhancing the monitoring capabilities of the Thirst-Alert system. With ThingSpeak, users can easily track and manage the moisture and temperature levels of their plants from anywhere, ensuring optimal growing conditions.
 
 ## 9. Presenting the data
+The data is saved every 30 minutes as a standard in the code, this is not to reach the limit of ThingSpeak API they have on their free version. 
+### View in ThingSpeak
+To present the data in a visual pleasing way I use ThingSpeaks Visualizations to display charts of all the data I get, I've alson added an gauge to make it more simple to read what level you want to have the soil moisture on. In ThingSpeak you have the ability to add an *Numeric Display*, *Lamp Indicator* and a *Image Display* as well if you would like other/more ways of displaying the data.
+<br><br>
 <img src="img/ThingspeakDashboard.png" width="1100">
+
+### View in Discord
+The notification on Discord is done to look very simple, not too much information on the message to make it a bit casual and easier to see what thing is called if you plan on having multiple webhooks.
+<br><br>
+<img src="img/DiscordWebhook.gif">
+
+### Data Storage and Automation
+- **Data Storage**: The data is saved in the ThingSpeak database to always be able to reach it.
+- **Import/Export**: ThingSpeak allows for importing and exporting data, providing flexibility in managing and migrating data as required.
+- **Saving Data**: The data is sent and saved every 30 minutes as a standard in the code, to avoid reaching the limit of the ThingSpeak API on their free version.
+
 
 ## 10. The final design
 
