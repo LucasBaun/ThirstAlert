@@ -16,14 +16,14 @@ The primary objective of this project is to develop a system capable of autonomo
 Through the execution of this project, it is expected to gain valuable insights into the technical aspects of IoT device integration, sensor calibration, and data interpretation. Furthermore, the project aims to provide a deeper understanding of the role of technology in optimizing plant care routines. The anticipated insights encompass both practical knowledge related to hardware implementation and conceptual understanding of the synergy between IoT and agriculture.
 
 ## 3. Material
-**Component** | **Description/Function** | **Purchased From** | **Price** (approximately)
---------------| -------------------------| -------------------| ------------------------
-Raspberry Pi Pico WH   | Serves as the central controller in the Thirst-Alert system. It processes data from the soil moisture sensor and sends notifications to alert when it's time to water the plants. The onboard WiFi module allows for seamless connectivity to the network, enabling remote monitoring and alerts.     |[Electrokit](https://www.electrokit.com/en/raspberry-pi-pico-wh)| 109 SEK
-Solderless Breadboard | The Solderless Breadboard acts as the assembly platform for electronic circuits in the project. It allows easy and temporary connections of components without soldering, facilitating rapid prototyping and testing of the Thirst-Alert system's electronic setup.     |[Electrokit](https://www.electrokit.com/en/kopplingsdack-840-anslutningar)      | 69 SEK
-Jumper wires female/male| These wires facilitate connections between components on the breadboard and other hardware, enabling seamless signal and power transmission in the project. |[Electrokit](https://www.electrokit.com/en/labbsladd-40-pin-30cm-hona/hane)| 49 SEK
-Jumper wires male/male | These wires were used only on the breadboard and are therefore not really a necessary component for this build. I bought them for simplicity *(as you see in the final picture)*, but you can still do this project without them. | [Electrokit](https://www.electrokit.com/en/labbsladd-40-pin-30cm-hane/hane) | 49 SEK
-Soil hygrometer module          | The Soil Hygrometer Module detects soil moisture levels, providing crucial data for the Thirst-Alert system. It consists of two probes that are inserted into the soil, and its analog output varies depending on the moisture content. This module serves as the primary sensor, allowing the system to determine when watering is needed based on the soil's hydration level.     |[Electrokit](https://www.electrokit.com/en/jordfuktighetssensor)      | 29 SEK
-temperature and humidity sensor | The DHT11 sensor measures environmental temperature and humidity, providing digital output for accurate monitoring of the plant's surroundings. Essential for ensuring optimal growing conditions. | [Electrokit](https://www.electrokit.com/en/digital-temperatur-och-fuktsensor-dht11) | 49 SEK
+**Image** |**Component** | **Description/Function** | **Purchased From** | **Price** (approximately)
+--------------|--------------| -------------------------| -------------------| ------------------------
+<img src="img/PICO-WH.jpg" width="1100"> | Raspberry Pi Pico WH   | Serves as the central controller in the Thirst-Alert system. It processes data from the soil moisture sensor and sends notifications to alert when it's time to water the plants. The onboard WiFi module allows for seamless connectivity to the network, enabling remote monitoring and alerts.     |[Electrokit](https://www.electrokit.com/en/raspberry-pi-pico-wh)| 109 SEK
+<img src="img/SOIL_MOISTURE.jpeg" width="1100"> | Soil hygrometer module          | The Soil Hygrometer Module detects soil moisture levels, providing crucial data for the Thirst-Alert system. It consists of two probes that are inserted into the soil, and its analog output varies depending on the moisture content. This module serves as the primary sensor, allowing the system to determine when watering is needed based on the soil's hydration level.     |[Electrokit](https://www.electrokit.com/en/jordfuktighetssensor)      | 29 SEK
+<img src="img/DHT11.jpg" width="1100"> | temperature and humidity sensor | The DHT11 sensor measures environmental temperature and humidity, providing digital output for accurate monitoring of the plant's surroundings. Essential for ensuring optimal growing conditions. | [Electrokit](https://www.electrokit.com/en/digital-temperatur-och-fuktsensor-dht11) | 49 SEK
+<img src="img/BREADBOARD.jpg" width="1100"> | Solderless Breadboard | The Solderless Breadboard acts as the assembly platform for electronic circuits in the project. It allows easy and temporary connections of components without soldering, facilitating rapid prototyping and testing of the Thirst-Alert system's electronic setup.     |[Electrokit](https://www.electrokit.com/en/kopplingsdack-840-anslutningar)      | 69 SEK
+<img src="img/CABLE_MF.jpg" width="1100"> | Jumper wires female/male| These wires facilitate connections between components on the breadboard and other hardware, enabling seamless signal and power transmission in the project. |[Electrokit](https://www.electrokit.com/en/labbsladd-40-pin-30cm-hona/hane)| 49 SEK
+<img src="img/CABLE_MM.jpg" width="1100"> | Jumper wires male/male | These wires were used only on the breadboard and are therefore not really a necessary component for this build. I bought them for simplicity *(as you see in the final picture)*, but you can still do this project without them. | [Electrokit](https://www.electrokit.com/en/labbsladd-40-pin-30cm-hane/hane) | 49 SEK
 
 
 ## 4. Computer setup
@@ -53,7 +53,14 @@ Download the latest firmware release on the [MycroPython site](https://micropyth
 ![Electronics](img/Circuit%20diagram_bb.png) <br>
 
 ## 6. Platform
-Some information about what platform did i use and like that
+### Thingspeak:
+For my project, I chose [ThingSpeak](https://thingspeak.com) as the platform for collecting, storing, and analyzing data. ThingSpeak is a cloud-based Internet of Things (IoT) platform provided by MathWorks, and its API works seamlessly with the Raspberry Pi Pico WH. The platform offers an easy method to store information on their cloud servers, which was crucial for my needs because I didn't want to store the data locally. The setup process was straightforward, and the platform's data visualization tools are both easy to use and visually pleasing. <br>
+
+ThingSpeak's ability to create events based on specific data values was another key feature that influenced my decision. This functionality allows for real-time alerts when plant needs water, enhancing the project's interactivity and responsiveness. 
+
+### Get started:
+   1. To get started with Thingspeak you first need to have an <ins>MathWork</ins> account, you can follow the steps on their [website](https://www.mathworks.com).
+   2. Login to Thingspeak and create a new channel under the "[Channels](https://thingspeak.com/channels)" menu
 
 ## 7. The code
 ### Wi-Fi function:
