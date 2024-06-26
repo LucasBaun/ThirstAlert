@@ -68,15 +68,62 @@ ThingSpeak's ability to create events based on specific data values was another 
    - If you encounter any issues, refer to the video walkthrough [here](https://www.mathworks.com/videos/create-a-mathworks-account-using-a-matlab-portal-1600159919958.html).
 
 2. **Creating ThingSpeak Channel**
-   - Log in to ThingSpeak and navigate to the "[Channels](https://thingspeak.com/channels)" menu to create a new channel. <img src="img/ThingspeakGuide1.png" width="600">
+   - Log in to ThingSpeak and navigate to the "[Channels](https://thingspeak.com/channels)" menu to create a new channel. <br><img src="img/ThingspeakGuide1.png" width="600">
    - Enter the *Name* of your project and provide a *Description* of its purpose. Under *Fields*, specify the number of data inputs. For the ThirstAlert project, activate 3 Fields:
       - Moisture
       - Temperature
       - Humidity
 
 3. **Getting API Key**
-   - After creating a channel in ThingSpeak, go to the channel settings, click on API Keys, and locate your API key. This key will be needed to be put in [keys](linkToFile) file for integrating ThingSpeak with your project. <img src="img/ThingspeakGuide2.png" width="600">
+   - After creating a channel in ThingSpeak, go to the channel settings, click on API Keys, and locate your API key. This key will be needed to be put in [`keys.py`](code/lib/keys.py) file for integrating ThingSpeak with your project. <br><img src="img/ThingspeakGuide2.png" width="600">
 
+4. **Create a discord webhook**
+   - Log in to your Discord server where you want to receive notifications. (You will need to have permissions for this so i recommend creating a new server)
+   - Click on the gear icon next to the channel name to access Channel Settings.
+   - Navigate to the **Integrations** tab and click on **Webhooks**.
+   - Click **New Webhook** and give it a name and select what channel it should send the warning in. Optionally, you can upload an avatar for the webhook.
+   - Copy the **Webhook URL** provided. This URL is required for sending messages to your Discord channel via the webhook.
+
+5. **Create a ThingHTTP in ThingSpeak**
+   - In ThingSpeak menu next to channel (as seen in step 2), navigate to the **Apps** tab and click on **ThingHTTP**.
+   - Click on **New ThingHTTP** to create a new HTTP request.
+   - Fill in the following details:
+        - **Name**: Give your ThingHTTP a descriptive name, such as "Discord Webhook".
+        - **URL**: This will be the *Discord **webhook URL*** that you obtained from step 4.
+        - **Method**: This needs to be set to **POST** since we're sending data to Discord.
+        - **Content Type**: *application/json*
+        - **Body**: This is where you define the message format you want to send to Discord and then save your ThingHTTP. You can use [Discohook](discohook.org) or take the code i used for design:<br>
+
+            ```JSON
+                      {
+              "content": null,
+              "embeds": [
+                {
+                  "title": "Your plant is dying :skull:",
+                  "description": "Your plant is about to die if you dont water it soon!\nTo get more info visit the [gauge](link to gauge) or the [chart](link to chart).",
+                  "url": "https://google.com",
+                  "color": 16711680,
+                  "image": {
+                    "url": "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExOWtseXhmMWpzdnp2N2trZ2FmdmgzNTAwd2Fqb25rcHhqcnduOTEyMiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/B1jS59Y80YKoyfJXSI/giphy.gif"
+                  }
+                }
+              ],
+              "attachments": []
+            }
+            ```
+  6. **Create a React in ThingSpeak**
+     - In ThingSpeak menu, navigate to the **Apps** tab and click on **React**.
+     - Click on **New React** and fill in the following details for an alert when moisture goes under a specific value:
+          - **Name**: Give your ThingHTTP a descriptive name, such as "Soil level low".
+          - **Condition Type**: Numeric
+          - **Test Frequency**: I used Every 30 minutes but you can change it to how often you would like it to check. If having it lower i would recommend changing how often the code sends data to ThingSpeak in [`main.py`](code/main.py).
+          - **Condition**:
+               - **If channel**: pick the one you created in step 2
+               - **field**: pick the field you have moisture in (should be field 1). Under that select "**is less than**" and then in the box under I would recommed setting it to 40.
+          - **Action**: ThingHTTP
+              - **then perform ThingHTTP**: Select the ThingHTTP you did in step 5
+          - **Option**: Run action each time condition is met
+       - Then press **Save React** and now when your plants moisture goes under the value you put the condition it will call the discord webhook and send an message in the channel you picked.
 
 
 ## 7. The code
@@ -174,6 +221,7 @@ The code reads the moisture level from the soil sensor thats connected to pin 27
 To transmit the data collected from the moisture and temperature sensors, the Thirst-Alert system utilizes ThingSpeak, an IoT platform. This integration with ThingSpeak enables seamless data transmission to the cloud, where the sensor readings are securely stored and can be accessed remotely. ThingSpeak provides robust features for real-time data visualization, analysis, and integration with other IoT applications, enhancing the monitoring capabilities of the Thirst-Alert system. With ThingSpeak, users can easily track and manage the moisture and temperature levels of their plants from anywhere, ensuring optimal growing conditions.
 
 ## 9. Presenting the data
+<img src="img/ThingspeakDashboard.png" width="1100">
 
 ## 10. The final design
 
