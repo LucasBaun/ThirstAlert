@@ -245,7 +245,8 @@ The notification on Discord is done to look very simple, not too much informatio
 
 
 ## 10. The final design
-**Images are coming soon!**
+<img src="img/Plant.jpg" width="500"> <img src="img/Closeup.jpg" width="500">
+<img src="img/Both.jpg" width="500">
 
 ### final thoughts
-The project are pretty simple to do and have a lot of potentials for more features and functionalities like an website that shows data of the plant and shows information about it's health or more sensors connected. I wouldnt change much about this project, perhaps fix an 3D printed housing for the electronics that doesnt need to be in the plant but other then that im very happy with the result of my ThirstAlert 🌱🌻🚿
+The project are pretty simple to do and have a lot of potentials for more features and functionalities like an website that shows data of the plant and shows information about it's health or more sensors connected. I wouldnt change much about this project, perhaps fix an 3D printed housing for the electronics instead of the box I ended up using. Other then that im very happy with the result of my ThirstAlert 🌱🌻🚿
